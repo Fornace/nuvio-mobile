@@ -13,6 +13,7 @@ import nuvio.composeapp.generated.resources.compose_settings_category_general
 import nuvio.composeapp.generated.resources.compose_settings_page_account
 import nuvio.composeapp.generated.resources.compose_settings_page_addons
 import nuvio.composeapp.generated.resources.compose_settings_page_advanced
+import nuvio.composeapp.generated.resources.compose_settings_page_ai_subtitles
 import nuvio.composeapp.generated.resources.compose_settings_page_appearance
 import nuvio.composeapp.generated.resources.compose_settings_page_content_discovery
 import nuvio.composeapp.generated.resources.compose_settings_page_debrid
@@ -147,6 +148,11 @@ internal enum class SettingsPage(
     ),
     Debrid(
         titleRes = Res.string.compose_settings_page_debrid,
+        category = SettingsCategory.General,
+        parentPage = Integrations,
+    ),
+    AiSubtitles(
+        titleRes = Res.string.compose_settings_page_ai_subtitles,
         category = SettingsCategory.General,
         parentPage = Integrations,
     ),

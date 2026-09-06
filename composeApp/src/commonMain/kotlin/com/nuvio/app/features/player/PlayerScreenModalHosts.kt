@@ -43,6 +43,9 @@ internal fun PlayerScreenModalHosts(
     onAutoSyncCapture: () -> Unit,
     onAutoSyncCueSelected: (SubtitleSyncCue) -> Unit,
     onAutoSyncReload: () -> Unit,
+    aiEnabled: Boolean,
+    aiTranslationState: com.nuvio.app.features.aisubtitle.AiSubtitleTranslationState,
+    onTranslateSubtitle: () -> Unit,
     onSubtitleModalDismissed: () -> Unit,
     showVideoSettingsModal: Boolean,
     playerSettings: PlayerSettingsUiState,
@@ -144,6 +147,9 @@ internal fun PlayerScreenModalHosts(
         onAutoSyncCapture = onAutoSyncCapture,
         onAutoSyncCueSelected = onAutoSyncCueSelected,
         onAutoSyncReload = onAutoSyncReload,
+        aiEnabled = aiEnabled,
+        aiTranslationState = aiTranslationState,
+        onTranslateSubtitle = onTranslateSubtitle,
         onDismiss = onSubtitleModalDismissed,
     )
 

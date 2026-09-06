@@ -118,6 +118,8 @@ open class MainActivity : AppCompatActivity() {
         TraktSettingsStorage.initialize(applicationContext)
         SimklAuthStorage.initialize(applicationContext)
         SimklSyncStorage.initialize(applicationContext)
+        com.nuvio.app.features.aisubtitle.AiSubtitleConfigStorage.initialize(applicationContext)
+        com.nuvio.app.features.aisubtitle.AiSubtitleFileStore.initialize(applicationContext)
         LibraryDisplaySettingsStorage.initialize(applicationContext)
         ContinueWatchingPreferencesStorage.initialize(applicationContext)
         ResumePromptStorage.initialize(applicationContext)
