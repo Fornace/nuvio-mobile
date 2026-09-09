@@ -2245,4 +2245,21 @@
         <item quantity="one">%d title</item>
         <item quantity="other">%d titles</item>
     </plurals>
+    <string name="compose_settings_page_ai_subtitles">AI Subtitles</string>
+    <string name="settings_integrations_ai_subtitles_description">Translate subtitles and generate captions with your own AI keys</string>
+    <string name="settings_ai_subtitles_section_title">Cloud AI provider</string>
+    <string name="settings_ai_subtitles_enabled">Enable AI subtitles</string>
+    <string name="settings_ai_subtitles_enabled_description">Shows translate and generate-captions actions in the subtitle panel</string>
+    <string name="settings_ai_subtitles_base_url">API endpoint</string>
+    <string name="settings_ai_subtitles_api_key">API key</string>
+    <string name="settings_ai_subtitles_api_key_set">Key stored securely</string>
+    <string name="settings_ai_subtitles_api_key_unset">Not set</string>
+    <string name="settings_ai_subtitles_model">Model</string>
+    <string name="settings_ai_subtitles_target_language">Translation language</string>
+    <string name="compose_player_ai_subtitles_rail_title">AI</string>
+    <string name="compose_player_translate_subtitles">Translate</string>
+    <string name="compose_player_generate_captions">Generate captions</string>
+    <string name="compose_player_translating_progress">Translating %1$d of %2$d</string>
+    <string name="compose_player_ai_subtitles_done">Done</string>
+    <string name="compose_player_translate_requires_key">Set the API key in Settings, Integrations, AI Subtitles</string>
 </resources>

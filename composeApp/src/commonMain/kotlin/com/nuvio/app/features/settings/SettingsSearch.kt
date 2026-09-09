@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Sync
 import androidx.compose.material.icons.rounded.AccountCircle
+import androidx.compose.material.icons.rounded.AutoAwesome
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.CloudDownload
 import androidx.compose.material.icons.rounded.CollectionsBookmark
@@ -113,6 +114,7 @@ internal fun settingsSearchEntries(
     val collectionsPage = stringResource(Res.string.collections_header)
     val tmdbPage = stringResource(Res.string.compose_settings_page_tmdb_enrichment)
     val mdbListPage = stringResource(Res.string.compose_settings_page_mdblist_ratings)
+    val aiSubtitlesPage = stringResource(Res.string.compose_settings_page_ai_subtitles)
 
     val entries = mutableListOf<SettingsSearchEntry>()
 
@@ -257,6 +259,13 @@ internal fun settingsSearchEntries(
         title = integrationsPage,
         description = stringResource(Res.string.compose_settings_root_integrations_description),
         icon = Icons.Rounded.Link,
+    )
+    addPage(
+        page = SettingsPage.AiSubtitles,
+        key = "ai-subtitles",
+        title = aiSubtitlesPage,
+        description = stringResource(Res.string.settings_integrations_ai_subtitles_description),
+        icon = Icons.Rounded.AutoAwesome,
     )
     addPage(
         page = SettingsPage.Notifications,

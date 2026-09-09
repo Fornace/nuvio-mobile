@@ -808,6 +808,7 @@ private fun MobileSettingsScreen(
                     onTmdbClick = { onPageChange(SettingsPage.TmdbEnrichment) },
                     onMdbListClick = { onPageChange(SettingsPage.MdbListRatings) },
                     onDebridClick = { onPageChange(SettingsPage.Debrid) },
+                    onAiSubtitlesClick = { onPageChange(SettingsPage.AiSubtitles) },
                 )
                 SettingsPage.TmdbEnrichment -> tmdbSettingsContent(
                     isTablet = false,
@@ -820,6 +821,9 @@ private fun MobileSettingsScreen(
                 SettingsPage.Debrid -> debridSettingsContent(
                     isTablet = false,
                     settings = debridSettings,
+                )
+                SettingsPage.AiSubtitles -> aiSubtitlesSettingsContent(
+                    isTablet = false,
                 )
                 SettingsPage.TraktAuthentication -> trackingSettingsContent(
                     isTablet = false,
@@ -1232,6 +1236,7 @@ private fun TabletSettingsScreen(
                         onTmdbClick = { onPageChange(SettingsPage.TmdbEnrichment) },
                         onMdbListClick = { onPageChange(SettingsPage.MdbListRatings) },
                         onDebridClick = { onPageChange(SettingsPage.Debrid) },
+                        onAiSubtitlesClick = { onPageChange(SettingsPage.AiSubtitles) },
                     )
                     SettingsPage.TmdbEnrichment -> tmdbSettingsContent(
                         isTablet = true,
@@ -1244,6 +1249,9 @@ private fun TabletSettingsScreen(
                     SettingsPage.Debrid -> debridSettingsContent(
                         isTablet = true,
                         settings = debridSettings,
+                    )
+                    SettingsPage.AiSubtitles -> aiSubtitlesSettingsContent(
+                        isTablet = true,
                     )
                     SettingsPage.TraktAuthentication -> trackingSettingsContent(
                         isTablet = true,

@@ -47,14 +47,19 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.nuvio.app.core.ui.nuvio
+import com.nuvio.app.features.aisubtitle.AiSubtitleTranslationState
 import nuvio.composeapp.generated.resources.Res
 import nuvio.composeapp.generated.resources.addon_title
+import nuvio.composeapp.generated.resources.compose_player_ai_subtitles_rail_title
 import nuvio.composeapp.generated.resources.compose_player_built_in
 import nuvio.composeapp.generated.resources.compose_player_fetch_subtitles
 import nuvio.composeapp.generated.resources.compose_player_languages
 import nuvio.composeapp.generated.resources.compose_player_none
 import nuvio.composeapp.generated.resources.compose_player_style
 import nuvio.composeapp.generated.resources.compose_player_subtitles
+import nuvio.composeapp.generated.resources.compose_player_translate_requires_key
+import nuvio.composeapp.generated.resources.compose_player_translate_subtitles
+import nuvio.composeapp.generated.resources.compose_player_translating_progress
 import nuvio.composeapp.generated.resources.settings_playback_option_forced
 import nuvio.composeapp.generated.resources.subtitle_language_unknown
 import org.jetbrains.compose.resources.stringResource
@@ -82,6 +87,9 @@ fun SubtitleModal(
     onAutoSyncCapture: () -> Unit,
     onAutoSyncCueSelected: (SubtitleSyncCue) -> Unit,
     onAutoSyncReload: () -> Unit,
+    aiEnabled: Boolean,
+    aiTranslationState: AiSubtitleTranslationState,
+    onTranslateSubtitle: () -> Unit,
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -308,6 +316,60 @@ fun SubtitleModal(
                                     onAutoSyncCueSelected = onAutoSyncCueSelected,
                                     onAutoSyncReload = onAutoSyncReload,
                                 )
+                            }
+                        }
+                    }
+
+                    AnimatedVisibility(
+                        visible = aiEnabled && effectiveSelectedAddonSubtitle != null,
+                        enter = fadeIn(),
+                        exit = fadeOut(),
+                    ) {
+                        SubtitleRail(
+                            title = stringResource(Res.string.compose_player_ai_subtitles_rail_title),
+                            width = 260.dp,
+                        ) {
+                            Column(
+                                modifier = Modifier
+                                    .heightIn(max = railMaxHeight)
+                                    .verticalScroll(rememberScrollState()),
+                            ) {
+                                if (aiTranslationState.isRunning) {
+                                    PlayerModalLoading(modifier = Modifier.padding(vertical = 12.dp))
+                                    if (aiTranslationState.total > 0) {
+                                        Text(
+                                            text = stringResource(
+                                                Res.string.compose_player_translating_progress,
+                                                aiTranslationState.done,
+                                                aiTranslationState.total,
+                                            ),
+                                            color = MaterialTheme.nuvio.colors.textMuted,
+                                            style = MaterialTheme.typography.bodyMedium,
+                                            modifier = Modifier.padding(horizontal = 6.dp),
+                                        )
+                                    }
+                                } else if (aiTranslationState.requiresKey) {
+                                    Text(
+                                        text = stringResource(Res.string.compose_player_translate_requires_key),
+                                        color = MaterialTheme.nuvio.colors.textMuted,
+                                        style = MaterialTheme.typography.bodyMedium,
+                                        modifier = Modifier.padding(horizontal = 6.dp, vertical = 10.dp),
+                                    )
+                                } else {
+                                    SubtitleRailEmptyState(
+                                        text = stringResource(Res.string.compose_player_translate_subtitles),
+                                        onClick = onTranslateSubtitle,
+                                    )
+                                    val errorMessage = aiTranslationState.errorMessage
+                                    if (!errorMessage.isNullOrBlank()) {
+                                        Text(
+                                            text = errorMessage,
+                                            color = MaterialTheme.nuvio.colors.textMuted,
+                                            style = MaterialTheme.typography.bodyMedium,
+                                            modifier = Modifier.padding(horizontal = 6.dp, vertical = 10.dp),
+                                        )
+                                    }
+                                }
                             }
                         }
                     }

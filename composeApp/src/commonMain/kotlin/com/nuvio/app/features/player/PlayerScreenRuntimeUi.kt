@@ -19,6 +19,7 @@ import nuvio.composeapp.generated.resources.*
 
 @Composable
 internal fun PlayerScreenRuntime.RenderPlayerRuntimeUi() {
+    com.nuvio.app.features.aisubtitle.AiSubtitleRepository.ensureLoaded()
     val runtime = this
     val isInPip = rememberIsInPictureInPicture()
     val displayedPositionMs = scrubbingPositionMs ?: playbackSnapshot.positionMs
@@ -487,6 +488,9 @@ private fun PlayerScreenRuntime.RenderPlayerModals(displayedPositionMs: Long) {
         onAutoSyncCapture = { captureSubtitleAutoSyncTime() },
         onAutoSyncCueSelected = { cue -> applySubtitleAutoSyncCue(cue) },
         onAutoSyncReload = { loadSubtitleAutoSyncCues(force = true) },
+        aiEnabled = com.nuvio.app.features.aisubtitle.AiSubtitleRepository.config.value.enabled,
+        aiTranslationState = aiTranslationState,
+        onTranslateSubtitle = { translateSelectedAddonSubtitle() },
         onSubtitleModalDismissed = { showSubtitleModal = false },
         showVideoSettingsModal = showVideoSettingsModal,
         playerSettings = playerSettingsUiState,

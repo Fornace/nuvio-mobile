@@ -1948,4 +1948,21 @@
   <string name="entity_browse_about">Informazioni</string>
   <string name="player_external_loading_subtitles">Caricamento sottotitoli dagli addon...</string>
   <string name="player_external_downloading_subtitles">Download dei sottotitoli...</string>
+    <string name="compose_settings_page_ai_subtitles">Sottotitoli AI</string>
+    <string name="settings_integrations_ai_subtitles_description">Traduci i sottotitoli e genera didascalie con le tue chiavi AI</string>
+    <string name="settings_ai_subtitles_section_title">Provider AI cloud</string>
+    <string name="settings_ai_subtitles_enabled">Abilita sottotitoli AI</string>
+    <string name="settings_ai_subtitles_enabled_description">Mostra le azioni di traduzione e generazione nel pannello sottotitoli</string>
+    <string name="settings_ai_subtitles_base_url">Endpoint API</string>
+    <string name="settings_ai_subtitles_api_key">Chiave API</string>
+    <string name="settings_ai_subtitles_api_key_set">Chiave salvata in modo sicuro</string>
+    <string name="settings_ai_subtitles_api_key_unset">Non impostata</string>
+    <string name="settings_ai_subtitles_model">Modello</string>
+    <string name="settings_ai_subtitles_target_language">Lingua di traduzione</string>
+    <string name="compose_player_ai_subtitles_rail_title">AI</string>
+    <string name="compose_player_translate_subtitles">Traduci</string>
+    <string name="compose_player_generate_captions">Genera sottotitoli</string>
+    <string name="compose_player_translating_progress">Traduzione %1$d di %2$d</string>
+    <string name="compose_player_ai_subtitles_done">Fatto</string>
+    <string name="compose_player_translate_requires_key">Imposta la chiave API in Impostazioni, Integrazioni, Sottotitoli AI</string>
 </resources>
