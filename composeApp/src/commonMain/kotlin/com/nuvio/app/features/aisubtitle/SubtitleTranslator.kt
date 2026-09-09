@@ -27,7 +27,7 @@ object SubtitleTranslator {
         onProgress: (done: Int, total: Int) -> Unit = { _, _ -> },
     ): TranslatedSubtitle {
         val config = AiSubtitleRepository.config.value
-        val apiKey = AiSubtitleConfigStorage.loadApiKey()?.takeIf { it.isNotBlank() }
+        val apiKey = AiSubtitleRepository.resolveApiKey()
             ?: throw AiSubtitleTranslationException("missing-api-key")
 
         val body = httpGetTextWithHeaders(

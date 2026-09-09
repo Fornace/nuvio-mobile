@@ -45,6 +45,12 @@ expect object AiSubtitleFileStore {
 }
 
 object AiSubtitleRepository {
+    /** Defaults that previous builds shipped; saved copies of these migrate to the current default. */
+    private val supersededDefaultModels = setOf(
+        "qwen3.7-max",
+        "comath-qwen-38-flash",
+    )
+
     private val _config = MutableStateFlow(AiSubtitleConfig())
     val config: StateFlow<AiSubtitleConfig> = _config.asStateFlow()
 
@@ -53,15 +59,20 @@ object AiSubtitleRepository {
     fun ensureLoaded() {
         if (loaded) return
         loaded = true
+        val savedModel = AiSubtitleConfigStorage.loadModel()?.takeIf { it.isNotBlank() }
         _config.value = AiSubtitleConfig(
             enabled = AiSubtitleConfigStorage.loadEnabled() ?: false,
             baseUrl = AiSubtitleConfigStorage.loadBaseUrl()?.takeIf { it.isNotBlank() }
                 ?: AiSubtitleConfig.DEFAULT_BASE_URL,
-            model = AiSubtitleConfigStorage.loadModel()?.takeIf { it.isNotBlank() }
+            model = savedModel?.takeIf { it !in supersededDefaultModels }
                 ?: AiSubtitleConfig.DEFAULT_MODEL,
             targetLanguage = AiSubtitleConfigStorage.loadTargetLanguage()?.takeIf { it.isNotBlank() }
                 ?: AiSubtitleConfig.DEFAULT_TARGET_LANGUAGE,
         )
+        // Persist the migration so the model group stays stable across restarts.
+        if (savedModel != null && savedModel in supersededDefaultModels) {
+            setModel(AiSubtitleConfig.DEFAULT_MODEL)
+        }
     }
 
     fun setEnabled(enabled: Boolean) {
@@ -95,5 +106,10 @@ object AiSubtitleRepository {
         AiSubtitleConfigStorage.saveApiKey(normalized?.takeIf { it.isNotBlank() })
     }
 
-    fun hasApiKey(): Boolean = AiSubtitleConfigStorage.loadApiKey()?.isNotBlank() == true
+    fun hasApiKey(): Boolean = resolveApiKey() != null
+
+    /** Keychain first; personal builds fall back to the gitignored build-time key. */
+    fun resolveApiKey(): String? =
+        AiSubtitleConfigStorage.loadApiKey()?.takeIf { it.isNotBlank() }
+            ?: AiSubtitleBuildConfig.API_KEY.takeIf { it.isNotBlank() }
 }

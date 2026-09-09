@@ -156,11 +156,15 @@ private fun AiSubtitleApiKeyRow(
         Row(modifier = Modifier.fillMaxWidth()) {
             Button(
                 onClick = {
-                    AiSubtitleRepository.setApiKey(normalizedDraft)
+                    if (normalizedDraft.isNotBlank()) {
+                        AiSubtitleRepository.setApiKey(normalizedDraft)
+                    } else {
+                        AiSubtitleRepository.setApiKey(null)
+                    }
                     hasKey = AiSubtitleRepository.hasApiKey()
                     draft = ""
                 },
-                enabled = normalizedDraft.isNotBlank(),
+                enabled = true,
             ) {
                 Text(stringResource(Res.string.action_save))
             }

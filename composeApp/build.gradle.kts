@@ -40,6 +40,9 @@ abstract class GenerateRuntimeConfigsTask : DefaultTask() {
     @get:Input
     abstract val sentryEnvironment: Property<String>
 
+    @get:Input
+    abstract val aiApiKey: Property<String>
+
     @TaskAction
     fun generate() {
         val props = Properties()
@@ -70,6 +73,19 @@ abstract class GenerateRuntimeConfigsTask : DefaultTask() {
                 |object SentryConfig {
                 |    const val DSN = "${sentryDsn.get()}"
                 |    const val ENVIRONMENT = "${sentryEnvironment.get()}"
+                |}
+                """.trimMargin()
+            )
+        }
+
+        outDir.resolve("com/nuvio/app/features/aisubtitle").apply {
+            mkdirs()
+            resolve("AiSubtitleBuildConfig.kt").writeText(
+                """
+                |package com.nuvio.app.features.aisubtitle
+                |
+                |object AiSubtitleBuildConfig {
+                |    const val API_KEY = "${aiApiKey.get()}"
                 |}
                 """.trimMargin()
             )
@@ -294,6 +310,7 @@ val generateRuntimeConfigs = tasks.register<GenerateRuntimeConfigsTask>("generat
     supabaseAnonKey.set(runtimeConfigValue("NUVIO_SUPABASE_ANON_KEY"))
     supabaseFallbackUrl.set(runtimeConfigValue("NUVIO_SUPABASE_FALLBACK_URL"))
     sentryDsn.set(runtimeConfigValue("SENTRY_DSN"))
+    aiApiKey.set(runtimeConfigValue("NUVIO_AI_API_KEY"))
     sentryEnvironment.set(
         when {
             requestedGradleTasks.any { "benchmark" in it } -> "benchmark"
