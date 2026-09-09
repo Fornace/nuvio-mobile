@@ -13,8 +13,8 @@ data class AiSubtitleConfig(
     val isConfigured: Boolean get() = AiSubtitleConfigStorage.loadApiKey()?.isNotBlank() == true
 
     companion object {
-        const val DEFAULT_BASE_URL = "https://dashscope.aliyuncs.com/compatible-mode/v1"
-        const val DEFAULT_MODEL = "qwen3.7-max"
+        const val DEFAULT_BASE_URL = "https://llm.fornace.net"
+        const val DEFAULT_MODEL = "comath-qwen-38-flash"
         const val DEFAULT_TARGET_LANGUAGE = "it"
     }
 }

@@ -68,6 +68,12 @@ object SubtitleTranslator {
     ): List<String> {
         val payload = buildJsonObject {
             put("model", config.model)
+            // Qwen3.x reasoning models burn hundreds of thinking tokens per batch,
+            // tripling latency and cost for zero subtitle-quality gain. Measured on
+            // comath-qwen-38-flash: 5.9s/295tok with thinking vs 1.9s/44tok without.
+            if (config.model.contains("qwen", ignoreCase = true)) {
+                put("enable_thinking", false)
+            }
             put(
                 "messages",
                 buildJsonArray {
