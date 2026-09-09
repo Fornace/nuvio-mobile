@@ -14,7 +14,7 @@ data class AiSubtitleConfig(
 
     companion object {
         const val DEFAULT_BASE_URL = "https://llm.fornace.net"
-        const val DEFAULT_MODEL = "comath-qwen-38-flash"
+        const val DEFAULT_MODEL = "gemini-3.8-flash"
         const val DEFAULT_TARGET_LANGUAGE = "it"
     }
 }
