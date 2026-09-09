@@ -61,7 +61,8 @@ object AiSubtitleRepository {
         loaded = true
         val savedModel = AiSubtitleConfigStorage.loadModel()?.takeIf { it.isNotBlank() }
         _config.value = AiSubtitleConfig(
-            enabled = AiSubtitleConfigStorage.loadEnabled() ?: false,
+            enabled = AiSubtitleConfigStorage.loadEnabled()
+                ?: AiSubtitleBuildConfig.API_KEY.isNotBlank(),
             baseUrl = AiSubtitleConfigStorage.loadBaseUrl()?.takeIf { it.isNotBlank() }
                 ?: AiSubtitleConfig.DEFAULT_BASE_URL,
             model = savedModel?.takeIf { it !in supersededDefaultModels }
