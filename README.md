@@ -14,9 +14,9 @@
 
 ## Get Nuvio Mobile
 
-- Android APKs: [NuvioMobile 0.4.13](https://github.com/NuvioMedia/NuvioMobile/releases/tag/0.4.13).
-- iOS: build from source. The previous public TestFlight link has expired and the upstream GitHub
-  IPA is unsigned, so neither is presented here as an installable beta.
+- [Android on Google Play](https://play.google.com/store/apps/details?id=com.nuvio.app)
+- [Android APK](https://github.com/NuvioMedia/NuvioMobile/releases/latest)
+- iOS via AltStore or SideStore: add [this source URL](https://raw.githubusercontent.com/NuvioMedia/NuvioMobile/cmp-rewrite/store.json) in the app's Sources section, then install Nuvio.
 - Apple Silicon Mac: the iOS target can run as Designed for iPad/iPhone from Xcode. A native macOS
   target and the Apple AI provider host are tracked in [issue #1](https://github.com/Fornace/nuvio-mobile/issues/1).
 

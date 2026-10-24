@@ -7,16 +7,22 @@ import com.nuvio.app.features.aisubtitle.AiSubtitleRepository
 import com.nuvio.app.features.aisubtitle.AiSubtitleTranslationException
 import com.nuvio.app.features.aisubtitle.SubtitleTranslator
 import com.nuvio.app.features.aisubtitle.toTranslatedAddonSubtitle
+import com.nuvio.app.features.autosync.AutoSyncPlayerController
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
 
 internal fun PlayerScreenRuntime.fetchAddonSubtitlesForActiveItem() {
+    if (activeSourceUrl.startsWith("file:") && externalSubtitles.isNotEmpty()) {
+        SubtitleRepository.clear()
+        return
+    }
     val type = activeAddonSubtitleType.takeIf { it.isNotBlank() } ?: return
     val videoId = activeVideoId?.takeIf { it.isNotBlank() } ?: return
     SubtitleRepository.fetchAddonSubtitles(type, videoId)
 }
 
 internal fun PlayerScreenRuntime.setSubtitleDelay(delayMs: Int) {
+    (playerController as? AutoSyncPlayerController)?.cancelForManualSubtitleDelay() // AutoSync hook
     val clamped = delayMs.coerceIn(SUBTITLE_DELAY_MIN_MS, SUBTITLE_DELAY_MAX_MS)
     subtitleDelayMs = clamped
     PlayerTrackPreferenceStorage.saveSubtitleDelayMs(playbackSession.videoId, clamped)
