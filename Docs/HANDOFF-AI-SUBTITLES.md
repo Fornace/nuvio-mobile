@@ -62,6 +62,15 @@ Agreed consensus across both reviewers:
 
 ## 4. Build/run recipes (verified this session)
 
+### 2026-10-24 update: Malu's iPhone + TMDB account registration
+
+- **Device:** Malu's iPhone (iPhone 17, UDID `00008150-001A49463640C01C`) registered to the Fornace team via the App Store Connect API key in `~/.agent_credentials/apple/appstore-connect.env` (device id `576BAH3F86`).
+- **Signing:** wildcard dev profile `Nuvio Fork Dev WC 1025` (ASC id `8739S4RZTK`, App ID `*`, both dev certs, all iOS devices) installed at `~/Library/Developer/Xcode/UserData/Provisioning Profiles/9c763de5-9f42-4e2c-a77a-e4a7ea3c5dd8.mobileprovision`. Build with `CODE_SIGN_STYLE=Manual PROVISIONING_PROFILE_SPECIFIER="Nuvio Fork Dev WC 1025" DEVELOPMENT_TEAM=2V6YSU4HFB` (covers app + widget).
+- **Engine prerequisite:** `./scripts/prepare-ios-dependencies.sh` downloads `NuvioEngine.xcframework` 0.1.6 to `../nuvio-engine/` (checksum-pinned) before a full build.
+- **TMDB:** `TMDB_API_KEY` in local.properties (v3 key; app sends `api_key` query param, not the v4 bearer token). `TmdbSettingsRepository` adopts the build key once as the stored personal key and defaults the module on, so `ProviderCredentialSync` registers it to the Nuvio account and every device on the profile receives it.
+
+### Earlier verified recipes
+
 ```bash
 # Java: no system JDK; use homebrew openjdk@17
 export JAVA_HOME=/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home
