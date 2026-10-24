@@ -165,8 +165,16 @@ object TmdbSettingsRepository {
         val wasLoaded = hasLoaded
         val previousApiKey = apiKey
         hasLoaded = true
-        enabled = TmdbSettingsStorage.loadEnabled() ?: false
-        apiKey = TmdbSettingsStorage.loadApiKey()?.trim().orEmpty()
+        // Personal builds bake a TMDB key at compile time; adopt it once as the stored
+        // personal key so provider credential sync registers it to the account and every
+        // device on the profile receives it. An explicitly cleared key is never re-seeded.
+        val buildApiKey = TmdbConfig.API_KEY.trim()
+        val storedApiKey = TmdbSettingsStorage.loadApiKey()
+        if (storedApiKey == null && buildApiKey.isNotBlank()) {
+            TmdbSettingsStorage.saveApiKey(buildApiKey)
+        }
+        enabled = TmdbSettingsStorage.loadEnabled() ?: buildApiKey.isNotBlank()
+        apiKey = (storedApiKey ?: buildApiKey)?.trim().orEmpty()
         val storedLanguage = TmdbSettingsStorage.loadLanguage()
         language = if (storedLanguage == null) "en" else normalizeLanguage(storedLanguage)
         useTrailers = TmdbSettingsStorage.loadUseTrailers() ?: true
