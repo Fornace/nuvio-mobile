@@ -7,6 +7,7 @@
 xcuserdata
 !src/**/build/
 local.properties
+/local.properties.bak-master-cutover-20260910T161625
 .idea
 .DS_Store
 captures
@@ -29,7 +30,6 @@ scripts/build-distribution.sh
 asset
 scripts/scrape_android_compose_animation_docs.py
 tools
-AGENTS.md
 PERFORMANCE_FINDINGS.md
 scripts/*
 !scripts/sign-ios-device-app.py
@@ -37,3 +37,6 @@ iosApp/Configuration/DeviceSigning.local.json
 
 # Local MPVKit iOS build environment (sparse APFS image, see MPVKit docs)
 .mpvkit-build.sparseimage
+/artifacts/media
+/artifacts/media-request-failures
+/artifacts/disk-cleanup
